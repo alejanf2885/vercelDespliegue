@@ -13,7 +13,9 @@ export default function HomeComponents() {
     setError(null);
     try {
       const id = getRandomPokemonId();
-      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+     // const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+     const res = await axios.get(`${import.meta.env.VITE_URLPOKEAPI}/pokemon/${id}`);
+
       setPokemon(res.data);
     } catch (err) {
       console.log(err)
