@@ -14,7 +14,7 @@ export default function HomeComponents() {
     try {
       const id = getRandomPokemonId();
      // const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-     const pokeApiUrl = import.meta.env.URL_API_POKEMON;
+     const pokeApiUrl = import.meta.env.VITE_URL_API_POKEMON;
      const res = await axios.get(`${pokeApiUrl}/api/v2/pokemon/${id}`);
      console.log()
 
