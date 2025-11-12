@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function HomeComponents() {
   const [pokemon, setPokemon] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔹 estado de carga
+  const [loading, setLoading] = useState(true);
 
   const getRandomPokemonId = () => Math.floor(Math.random() * 1010) + 1;
 
@@ -12,19 +13,18 @@ export default function HomeComponents() {
     setError(null);
     try {
       const id = getRandomPokemonId();
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      if (!res.ok) throw new Error("Error al obtener el Pokémon");
-      const data = await res.json();
-      setPokemon(data);
+      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      setPokemon(res.data);
     } catch (err) {
-      setError(err.message);
+      console.log(err)
+      setError("Error al obtener el Pokémon 🥲");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPokemon(); // Llamada inicial
+    fetchPokemon(); 
   }, []);
 
   if (loading)
@@ -37,7 +37,13 @@ export default function HomeComponents() {
   if (error)
     return (
       <div className="flex justify-center items-center h-screen bg-red-100">
-        <p className="text-red-600 text-xl font-semibold">⚠️ Error: {error}</p>
+        <p className="text-red-600 text-xl font-semibold">⚠️ {error}</p>
+        <button
+          onClick={fetchPokemon}
+          className="ml-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
+        >
+          Reintentar
+        </button>
       </div>
     );
 
@@ -78,7 +84,7 @@ export default function HomeComponents() {
 
         <button
           className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded-xl shadow-md transition-colors duration-200"
-          onClick={fetchPokemon} // 🔹 reutilizamos fetchPokemon
+          onClick={fetchPokemon}
         >
           🔄 Cargar otro Pokémon
         </button>
