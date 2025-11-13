@@ -13,13 +13,13 @@ export default function HomeComponents() {
     setError(null);
     try {
       const id = getRandomPokemonId();
-      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+ //     const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
       console.log('ESTO ES MAIN')
-    //  const pokeApiUrl = import.meta.env.VITE_URL_API_POKEMON;
-    //  console.log(pokeApiUrl)
+      const pokeApiUrl = import.meta.env.VITE_URL_API_POKEMON;
+    console.log(pokeApiUrl)
     //  const example = import.meta.env.VITE_EXAMPLE;
     //  console.log(example)
-    //  const res = await axios.get(`${pokeApiUrl}/api/v2/pokemon/${id}`);
+     const res = await axios.get(`${pokeApiUrl}/api/v2/pokemon/${id}`);
      console.log()
 
       setPokemon(res.data);
